@@ -1,8 +1,10 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateGameDto } from './dto/create-game.dto';
 import { GameService } from './game.service';
 
-@Controller('Game')
+@ApiTags('Game')
+@Controller('game')
 export class GameController {
   constructor(private gameService: GameService) {}
   @Get()
