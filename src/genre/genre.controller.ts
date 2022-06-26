@@ -1,14 +1,17 @@
 import { Controller, Get, Post } from '@nestjs/common';
+import { GenreService } from './genre.service';
 
 @Controller('genre')
 export class GenreController {
+  constructor(private genreService: GenreService) {}
+
   @Get()
   findAll() {
-    return 'Find all genres';
+    return this.genreService.findAll();
   }
 
   @Post()
   create() {
-    return 'Create a genre';
+    return this.genreService.create();
   }
 }
