@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateGenreDto } from './dto/create-genre.dto';
 
 @Injectable()
 export class GenreService {
@@ -6,7 +7,7 @@ export class GenreService {
     return 'Find all genres';
   }
 
-  create() {
-    return 'create a genre'
+  create(createGenreDto: CreateGenreDto) {
+    return 'create a genre' + JSON.stringify(createGenreDto);
   }
 }

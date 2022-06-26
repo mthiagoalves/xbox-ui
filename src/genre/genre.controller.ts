@@ -1,4 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
+import { CreateGenreDto } from './dto/create-genre.dto';
 import { GenreService } from './genre.service';
 
 @Controller('genre')
@@ -11,7 +12,7 @@ export class GenreController {
   }
 
   @Post()
-  create() {
-    return this.genreService.create();
+  create(createGenreDto: CreateGenreDto) {
+    return this.genreService.create(createGenreDto);
   }
 }
