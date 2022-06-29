@@ -7,11 +7,17 @@ import { Genre } from './entities/genre.entity';
 export class GenreService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll() {
+  findAll(): Promise<Genre[]> {
     return this.prisma.genre.findMany();
   }
 
-  create(createGenreDto: CreateGenreDto) {
+  findOne(id: string): Promise<Genre> {
+    return this.prisma.genre.findUnique({
+      where: { id },
+    });
+  }
+
+  create(createGenreDto: CreateGenreDto): Promise<Genre> {
     const genre: Genre = { ...createGenreDto };
 
     return this.prisma.genre.create({
