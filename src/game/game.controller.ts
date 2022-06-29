@@ -6,7 +6,7 @@ import { GameService } from './game.service';
 @ApiTags('Game')
 @Controller('game')
 export class GameController {
-  constructor(private gameService: GameService) {}
+  constructor(private readonly gameService: GameService) {}
   @Get()
   findAll() {
     return this.gameService.findAll();

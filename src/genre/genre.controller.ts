@@ -6,7 +6,7 @@ import { GenreService } from './genre.service';
 @ApiTags('Genre')
 @Controller('genre')
 export class GenreController {
-  constructor(private genreService: GenreService) {}
+  constructor(private readonly genreService: GenreService) {}
 
   @Get()
   findAll() {
