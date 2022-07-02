@@ -12,7 +12,7 @@ datasource db {
 
 model Game {
   id String @id @default(uuid())
-  name String
+  name String @unique
   year Int
   description String
   multiplayer String
@@ -24,7 +24,7 @@ model Game {
 
 model Genre {
   id String @id @default(uuid())
-  genre String
+  genre String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
