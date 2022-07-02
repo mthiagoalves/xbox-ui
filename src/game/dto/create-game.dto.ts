@@ -35,4 +35,12 @@ export class CreateGameDto {
   })
   @IsString()
   studio: string;
+
+  @ApiProperty({
+    example:
+      'https://image.api.playstation.com/vulcan/ap/rnd/202107/1612/Y5RHNmzAtc6sRYwZlYiKHAxN.png',
+    description: 'Image of the game',
+  })
+  @IsString()
+  image: string;
 }

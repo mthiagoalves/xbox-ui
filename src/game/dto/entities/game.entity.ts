@@ -5,4 +5,5 @@ export class Game {
   description: string;
   multiplayer: string;
   studio: string;
+  image: string;
 }
