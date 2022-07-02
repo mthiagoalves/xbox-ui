@@ -17,7 +17,7 @@ export class CreateGameDto {
 
   @ApiProperty({
     example: 'Not',
-    description: 'Multiplyear',
+    description: 'Multiplayer',
   })
   @IsString()
   multiplayer: string;
