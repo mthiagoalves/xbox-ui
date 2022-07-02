@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateGenreDto } from './dto/create-genre.dto';
+import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Genre } from './entities/genre.entity';
 import { GenreService } from './genre.service';
 
@@ -17,19 +18,30 @@ export class GenreController {
     return this.genreService.findAll();
   }
 
-  @Get(':genre')
+  @Get(':id')
   @ApiOperation({
     summary: 'Find genre for Id',
   })
-  findOne(@Param('genre') genre: string): Promise<Genre> {
-    return this.genreService.findOne(genre);
+  findOne(@Param('id') id: string): Promise<Genre> {
+    return this.genreService.findOne(id);
   }
 
   @Post()
   @ApiOperation({
     summary: 'Create a genre',
   })
-  create(@Body() createGenreDto: CreateGenreDto) {
+  create(@Body() createGenreDto: CreateGenreDto): Promise<Genre> {
     return this.genreService.create(createGenreDto);
+  }
+
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Update a genre for Id',
+  })
+  update(
+    @Param('id') id: string,
+    @Body() UpdateGenreDto: UpdateGenreDto,
+  ): Promise<Genre> {
+    return this.genreService.update(id, UpdateGenreDto);
   }
 }
