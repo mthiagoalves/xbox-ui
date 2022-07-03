@@ -31,7 +31,7 @@ export class UserService {
     return this.findById(id);
   }
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  create(createUserDto: CreateUserDto): Promise<User> { 
     const user: User = { ...createUserDto };
 
     return this.prisma.user
@@ -64,6 +64,10 @@ export class UserService {
   handleError(error: Error): undefined {
     const errorLines = error.message?.split('\n');
     const lastErrorLine = errorLines[errorLines.length - 1].trim();
+
+    if (!lastErrorLine) {
+      console.error(error);
+    }
 
     throw new UnprocessableEntityException(lastErrorLine);
   }

@@ -51,6 +51,5 @@ export class CreateUserDto {
     example: 'Abcd@1234',
     description: 'Confirm your password',
   })
-  @IsString()
   confirmPassword: string;
 }
