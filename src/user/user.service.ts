@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
@@ -7,6 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -31,8 +33,17 @@ export class UserService {
     return this.findById(id);
   }
 
-  create(createUserDto: CreateUserDto): Promise<User> { 
-    const user: User = { ...createUserDto };
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    if (createUserDto.password != createUserDto.confirmPassword) {
+      throw new BadRequestException('This passwords is not a match');
+    }
+
+    delete createUserDto.confirmPassword;
+
+    const user: User = {
+      ...createUserDto,
+      password: await bcrypt.hash(createUserDto.password, 10),
+    };
 
     return this.prisma.user
       .create({
@@ -44,7 +55,19 @@ export class UserService {
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     await this.findById(id);
 
+    if (updateUserDto.password) {
+      if (updateUserDto.password != updateUserDto.confirmPassword) {
+        throw new BadRequestException('This passwords is not a match');
+      }
+    }
+
+    delete updateUserDto.confirmPassword;
+
     const user: Partial<User> = { ...updateUserDto };
+
+    if (user.password) {
+      user.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
 
     return this.prisma.user
       .update({
