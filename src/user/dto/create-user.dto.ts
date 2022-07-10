@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  isBoolean,
   IsString,
   IsUrl,
   Matches,
@@ -52,4 +53,10 @@ export class CreateUserDto {
     description: 'Confirm your password',
   })
   confirmPassword: string;
+
+  @ApiProperty({
+    example: 'false',
+    description: 'Permission of the user',
+  })
+  isAdmin: boolean;
 }

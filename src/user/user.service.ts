@@ -19,6 +19,7 @@ export class UserService {
     image: true,
     password: false,
     username: true,
+    isAdmin: false,
     createdAt: true,
     updatedAt: true,
   };
